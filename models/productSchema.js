@@ -36,14 +36,14 @@ const ProductSchema = new Schema({
         salePercentage: {
             type: Number,
             min: function () {
-                return this.sale.isOnSale ? 5 : 0;
+                return this.isOnSale ? 5 : 0;
             },
             max: 75,
             default: function () {
-                return this.sale.isOnSale ? 10 : 0;
+                return this.isOnSale ? 10 : 0;
             },
             required: function () {
-                return this.sale.isOnSale;
+                return this.isOnSale;
             }
         },
     },
