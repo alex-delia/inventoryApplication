@@ -1,18 +1,16 @@
 <%- include('./header.ejs') %>
-    <div class="flex-grow-1 p-5">
-        <h1 class="title">
-            <%= title %>
-        </h1>
-        <ul>
-            <% brand_list.forEach(brand=> { %>
-                <li class="fs-4">
-                    <a href="<%= brand.url%>"
-                        class='link-offset-3 link-underline link-underline-opacity-0 link-underline-opacity-75-hover'>
-                        <%= brand.name %>
-                    </a>
-                    - <%= brand.productCount %> <%- brand.productCount===1 ? 'product' : 'products' %>
-                </li>
-                <% }) %>
-        </ul>
-    </div>
+    <h1 class="title">
+        <%= title %>
+    </h1>
+    <ul>
+        <% brand_list.forEach(brand=> { %>
+            <li class="fs-4">
+                <a href="<%= brand.url%>"
+                    class='link-offset-3 link-underline link-underline-opacity-0 link-underline-opacity-75-hover'>
+                    <%= brand.name %>
+                </a>
+                - <%= brand.productCount %> <%- brand.productCount===1 ? 'product' : 'products' %>
+            </li>
+            <% }) %>
+    </ul>
     <%- include('./footer.ejs') %>
