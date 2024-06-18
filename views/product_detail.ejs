@@ -8,7 +8,12 @@
 <ul>
     <li class='fs-4'>
         <% if(product.isOnSale){%>
-        Original: $<%= product.price %> | NOW: $<%= product.price - (product.price * (product.salePercentage /100))  %>
+        <span>
+            Original: $<%= product.price %> | NOW:
+            $<%= product.salePrice  %>
+        </span>
+        <% } else { %>
+        <span>$<%= product.price %></span>
         <% } %>
     </li>
 

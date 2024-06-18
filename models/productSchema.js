@@ -49,4 +49,8 @@ ProductSchema.virtual('isOnSale').get(function () {
     return this.salePercentage > 0 ? true : false;
 });
 
+ProductSchema.virtual('salePrice').get(function () {
+    return this.price - (this.price * (this.salePercentage / 100));
+});
+
 module.exports = mongoose.model('Product', ProductSchema);
