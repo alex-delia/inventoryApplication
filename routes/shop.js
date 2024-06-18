@@ -60,9 +60,9 @@ router.get('/brands', brand_controller.brand_list);
 /// CATEGORY ROUTES ///
 
 //GET request for creating a category
-router.get('/v/create', category_controller.category_create_get);
+router.get('/category/create', category_controller.category_create_get);
 //POST request for creating a category
-router.post('/v/create', category_controller.category_create_post);
+router.post('/category/create', category_controller.category_create_post);
 
 //GET request for deleting a category
 router.get('/category/:id/delete', category_controller.category_delete_get);
