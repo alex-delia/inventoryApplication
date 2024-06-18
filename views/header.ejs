@@ -45,6 +45,13 @@
                     <div class="collapse" id="products-collapse">
                         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                             <li><a href="/shop/products" class="link-dark rounded fs-6">All Products</a></li>
+                            <% sidebarData[0].forEach(function (product) {%>
+                                <li>
+                                    <a href="<%= product.url %>" class="link-dark rounded fs-6">
+                                        <%= product.name %>
+                                    </a>
+                                </li>
+                                <% }); %>
                         </ul>
                     </div>
                 </li>
@@ -65,6 +72,13 @@
                     <div class="collapse" id="brands-collapse">
                         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                             <li><a href="/shop/brands" class="link-dark rounded fs-6">All Brands</a></li>
+                            <% sidebarData[1].forEach(function (brand) {%>
+                                <li>
+                                    <a href="<%= brand.url %>" class="link-dark rounded fs-6">
+                                        <%= brand.name %>
+                                    </a>
+                                </li>
+                                <% }); %>
                         </ul>
                     </div>
                 </li>
