@@ -1,4 +1,5 @@
 const Category = require('../models/categorySchema');
+const Product = require('../models/productSchema');
 
 const asyncHandler = require('express-async-handler');
 
@@ -14,7 +15,23 @@ exports.category_list = asyncHandler(async (req, res, next) => {
 
 //display detail page for specified Category
 exports.category_detail = asyncHandler(async (req, res, next) => {
-    res.send(`NOT IMPLEMENTED: Category Detail: ${req.params.id}`);
+    const [category, categoryProducts] = await Promise.all([
+        Category.findById(req.params.id).exec(),
+        Product.find({ category: req.params.id }, 'name description').exec()
+    ]);
+
+    if (category === null) {
+        // No results.
+        const err = new Error("Brand not found");
+        err.status = 404;
+        return next(err);
+    }
+
+    res.render('category_detail', {
+        title: `${category.name}`,
+        category: category,
+        category_products: categoryProducts
+    });
 });
 
 //display Category create form on GET
