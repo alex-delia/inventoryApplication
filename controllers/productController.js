@@ -9,7 +9,16 @@ exports.index = asyncHandler(async (req, res, next) => {
 
 //display list of all products
 exports.product_list = asyncHandler(async (req, res, next) => {
-    res.send('NOT IMPLEMENTED: Product List');
+    const allProducts = await Product.find()
+        .sort({ name: 1 })
+        .populate('brand')
+        .populate('category')
+        .exec();
+
+    res.render('product_list', {
+        title: 'Products',
+        product_list: allProducts
+    });
 });
 
 //display detail page for specified Product
