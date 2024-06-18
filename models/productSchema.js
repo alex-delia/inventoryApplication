@@ -31,27 +31,21 @@ const ProductSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Category',
     }],
-    sale: {
-        isOnSale: { type: Boolean, default: false },
-        salePercentage: {
-            type: Number,
-            min: function () {
-                return this.isOnSale ? 5 : 0;
-            },
-            max: 75,
-            default: function () {
-                return this.isOnSale ? 10 : 0;
-            },
-            required: function () {
-                return this.isOnSale;
-            }
-        },
+    salePercentage: {
+        type: Number,
+        min: 0,
+        max: 75,
+        default: 0,
     },
 });
 
 //virtual for product URL
 ProductSchema.virtual('url').get(function () {
     return `/shop/products/${this._id}`;
+});
+
+ProductSchema.virtual('isOnSale').get(function () {
+    return this.salePercentage > 0 ? true : false;
 });
 
 module.exports = mongoose.model('Product', ProductSchema);
