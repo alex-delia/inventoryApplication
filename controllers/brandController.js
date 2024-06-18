@@ -1,4 +1,5 @@
 const Brand = require('../models/brandSchema');
+const Product = require('../models/productSchema');
 
 const asyncHandler = require('express-async-handler');
 
@@ -14,7 +15,23 @@ exports.brand_list = asyncHandler(async (req, res, next) => {
 
 //display detail page for specified Brand
 exports.brand_detail = asyncHandler(async (req, res, next) => {
-    res.send(`NOT IMPLEMENTED: Brand Detail: ${req.params.id}`);
+    const [brand, brandProducts] = await Promise.all([
+        Brand.findById(req.params.id),
+        Product.find({ brand: req.params.id }, 'name description').exec()
+    ]);
+
+    if (brand === null) {
+        // No results.
+        const err = new Error("Brand not found");
+        err.status = 404;
+        return next(err);
+    }
+
+    res.render('brand_detail', {
+        title: `${brand.name} Details`,
+        brand: brand,
+        brand_products: brandProducts
+    });
 });
 
 //display Brand create form on GET

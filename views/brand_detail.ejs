@@ -1,0 +1,23 @@
+<%- include('./header.ejs') %>
+<h1 class="title">
+    <%= title %>
+</h1>
+
+<h4 class='text-center'>
+    <%= brand.description %>
+</h4>
+
+<ul>
+    <% brand_products.forEach(product => { %>
+    <li>
+        <h5>
+            <a href="<%= product.url %>">
+                <%= product.name %>
+            </a>
+        </h5>
+        <span><%= product.description %></span>
+    </li>
+    <% }) %>
+</ul>
+
+<%- include('./footer.ejs') %>
