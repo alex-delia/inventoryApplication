@@ -41,7 +41,7 @@ const ProductSchema = new Schema({
 
 //virtual for product URL
 ProductSchema.virtual('url').get(function () {
-    return `/shop/products/${this._id}`;
+    return `/shop/product/${this._id}`;
 });
 
 ProductSchema.virtual('isOnSale').get(function () {
