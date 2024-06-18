@@ -18,4 +18,11 @@ BrandSchema.virtual('url').get(function () {
     return `/shop/brand/${this._id}`;
 });
 
+BrandSchema.virtual('productCount', {
+    ref: 'Product',
+    localField: '_id',
+    foreignField: 'brand',
+    count: true
+});
+
 module.exports = mongoose.model('Brand', BrandSchema);
