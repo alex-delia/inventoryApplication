@@ -1,0 +1,17 @@
+<%- include('./header.ejs') %>
+    <div class="flex-grow-1 p-5">
+        <h1 class="title">
+            <%= title %>
+        </h1>
+        <ul>
+            <% category_list.forEach(category=> { %>
+                <li class="fs-4">
+                    <a href="<%= category.url%>"
+                        class='link-offset-3 link-underline link-underline-opacity-0 link-underline-opacity-75-hover'>
+                        <%= category.name %>
+                    </a>
+                </li>
+                <% }) %>
+        </ul>
+    </div>
+    <%- include('./footer.ejs') %>
