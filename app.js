@@ -35,7 +35,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(async (req, res, next) => {
   const sidebarData = await Promise.all([
-    Product.find({}, 'name').sort({ name: 1 }).exec(),
+    Product.find({}, 'name').sort({ name: 1 }).limit(10).exec(),
     Brand.find({}, 'name').sort({ name: 1 }).exec(),
     Category.find({}, 'name').sort({ name: 1 }).exec(),
   ]);
