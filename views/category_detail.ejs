@@ -7,10 +7,11 @@
     <%= category.description %>
 </h4>
 
+<% if (category_products.length === 0) { %>
+<h5>No Products Found</h5>
+<% } %>
+
 <ul>
-    <% if (category_products.length === 0) { %>
-    <h5>No Products Found</h5>
-    <% } %>
     <% category_products.forEach(product => { %>
     <li>
         <h5>
