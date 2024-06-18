@@ -10,6 +10,7 @@
                         class='link-offset-3 link-underline link-underline-opacity-0 link-underline-opacity-75-hover'>
                         <%= category.name %>
                     </a>
+                    - <%= category.productCount %> <%- category.productCount===1 ? 'product' : 'products' %>
                 </li>
                 <% }) %>
         </ul>
