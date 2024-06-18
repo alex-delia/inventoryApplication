@@ -6,10 +6,6 @@ main {
   overflow-y: hidden;
 }
 
-a {
-  color: #00B7FF;
-}
-
 .sidebar {
   width: 280px;
 }
@@ -46,6 +42,11 @@ a {
 
 .btn-toggle-nav a:hover,
 .btn-toggle-nav a:focus {
+  background-color: #d2f4ea;
+}
+
+.bi-plus-square:hover {
+  cursor: pointer;
   background-color: #d2f4ea;
 }
 
