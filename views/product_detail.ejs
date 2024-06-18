@@ -1,3 +1,41 @@
 <%- include('./header.ejs') %>
+<h1 class="title">
+    <%= product.name %>
+</h1>
+<h3 class='text-center'>
+    <%= product.description %>
+</h3>
+<ul>
+    <li class='fs-4'>
+        <% if(product.isOnSale){%>
+        Original: $<%= product.price %> | NOW: $<%= product.price - (product.price * (product.salePercentage /100))  %>
+        <% } %>
+    </li>
 
-    <%- include('./footer.ejs') %>
+    <% if(product.isOnSale){%>
+    <li class='fs-4'>
+        SALE: <%= product.salePercentage %>% Off
+    </li>
+    <% } %>
+
+    <li class='fs-4'>
+        <%= product.inStock %> in stock
+    </li>
+
+    <li class='fs-4'>
+        Brand: <a href="<%= product.brand.url %>"><%= product.brand.name %></a>
+    </li>
+    <li class='fs-4'>
+        Categories
+        <ul>
+            <% product.category.forEach(category => { %>
+            <li>
+                <a href="<%= category.url %>"><%= category.name %></a>
+            </li>
+            <% }) %>
+        </ul>
+    </li>
+
+</ul>
+
+<%- include('./footer.ejs') %>
