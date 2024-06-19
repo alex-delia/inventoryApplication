@@ -74,7 +74,7 @@ exports.category_create_post = [
 
             // Save category.
             await category.save();
-            // Redirect to new author record.
+            // Redirect to new category record.
             res.redirect(category.url);
         }
     })
