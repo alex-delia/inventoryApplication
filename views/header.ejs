@@ -56,14 +56,14 @@
                     </a>
                     <div class="collapse" id="brands-collapse">
                         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                            <li><a href="/shop/brands" class="link-dark rounded fs-6">All Brands</a></li>
+                            <li><a href="/shop/brands" class="link-dark rounded fs-6 mt-1">All Brands</a></li>
                             <% sidebarData[1].forEach(function (brand) {%>
-                                <li>
-                                    <a href="<%= brand.url %>" class="link-dark rounded fs-6">
-                                        <%= brand.name %>
-                                    </a>
-                                </li>
-                                <% }); %>
+                            <li>
+                                <a href="<%= brand.url %>" class="link-dark rounded fs-6 ">
+                                    <%= brand.name %> - <%= brand.productCount %>
+                                </a>
+                            </li>
+                            <% }); %>
                         </ul>
                     </div>
                 </li>
@@ -83,14 +83,14 @@
                     </a>
                     <div class="collapse" id="categories-collapse">
                         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                            <li><a href="/shop/categories" class="link-dark rounded fs-6">All Categories</a></li>
+                            <li><a href="/shop/categories" class="link-dark rounded fs-6 mt-1">All Categories</a></li>
                             <% sidebarData[2].forEach(function (category) {%>
-                                <li>
-                                    <a href="<%= category.url %>" class="link-dark rounded fs-6">
-                                        <%= category.name %>
-                                    </a>
-                                </li>
-                                <% }); %>
+                            <li>
+                                <a href="<%= category.url %>" class="link-dark rounded fs-6">
+                                    <%= category.name %> - <%= category.productCount %>
+                                </a>
+                            </li>
+                            <% }); %>
                         </ul>
                     </div>
                 </li>
