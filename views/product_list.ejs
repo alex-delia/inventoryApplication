@@ -1,19 +1,25 @@
 <%- include('./header.ejs') %>
-    <h1 class="title">
-        <%= title %>
-    </h1>
-    <ul>
-        <% product_list.forEach(product=> { %>
-            <li class="fs-4">
-                <a href="<%= product.url%>"
-                    class="link-offset-3 link-underline link-underline-opacity-0 link-underline-opacity-75-hover">
-                    <%= product.name %>
-                </a>
-                <% product.category.forEach(category=> { %>
-                    <span>- <%= category.name %></span>
-                    <% }) %>
-                        <span>- <%=product.brand.name %></span>
-            </li>
-            <% }) %>
-    </ul>
-    <%- include('./footer.ejs') %>
+<h1 class="title">
+    <%= title %>
+</h1>
+<ul>
+    <% product_list.forEach(product=> { %>
+    <li class="fs-4">
+        <a href="<%= product.url%>"
+            class="link-offset-3 link-underline link-underline-opacity-0 link-underline-opacity-75-hover fw-bold">
+            <%= product.name %>
+        </a>
+        <% product.category.forEach(category=> { %>
+        <span> - </span>
+        <a href="<%= category.url %>"
+            class="link-offset-3 link-underline link-underline-opacity-0 link-underline-opacity-75-hover">
+            <%= category.name %></a>
+        <% }) %>
+        <span> - </span>
+        <a href="<%= product.brand.url %>"
+            class="link-offset-3 link-underline link-underline-opacity-0 link-underline-opacity-75-hover">
+            <%=product.brand.name %></a>
+    </li>
+    <% }) %>
+</ul>
+<%- include('./footer.ejs') %>
