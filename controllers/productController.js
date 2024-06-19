@@ -1,4 +1,6 @@
 const Product = require('../models/productSchema');
+const Brand = require('../models/brandSchema');
+const Category = require('../models/categorySchema');
 
 const asyncHandler = require('express-async-handler');
 
@@ -43,7 +45,16 @@ exports.product_detail = asyncHandler(async (req, res, next) => {
 
 //display Product create form on GET
 exports.product_create_get = asyncHandler(async (req, res, next) => {
-    res.send('NOT IMPLEMENTED: Product Create GET');
+    const [allBrands, allCategories] = await Promise.all([
+        Brand.find().sort({ name: 1 }).exec(),
+        Category.find().sort({ name: 1 }).exec()
+    ]);
+
+    res.render('product_form', {
+        title: 'New Product',
+        brands: allBrands,
+        categories: allCategories
+    });
 });
 
 //handle Product create on POST

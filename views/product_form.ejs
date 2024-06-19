@@ -1,0 +1,64 @@
+<%- include('./header.ejs') %>
+<h1 class="title">
+    <%= title %>
+</h1>
+<form>
+    <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="name" name="name" placeholder="Product Name" required
+            value="<%= typeof product === 'undefined'  ? '' : product.name %>">
+        <label for="name" class="form-label">Name</label>
+    </div>
+    <div class="form-floating mb-3">
+        <textarea class="form-control" placeholder="Product Description" id="description" name="description"
+            required><%= typeof product === 'undefined'  ? '' : product.description %></textarea>
+        <label for="description">Description</label>
+    </div>
+    <div class="input-group mb-3">
+        <span class="input-group-text">$</span>
+        <div class="form-floating">
+            <input type="number" class="form-control" id="price" name="price" placeholder="Product Price" min="0"
+                step="0.01" required value="<%= typeof product === 'undefined'  ? '' : product.price %>">
+            <label for="price" class="form-label">Price</label>
+        </div>
+    </div>
+    <div class="input-group mb-3">
+        <span class="input-group-text">%</span>
+        <div class="form-floating">
+            <input type="number" class="form-control" id="salePercentage" name="salePercentage"
+                placeholder="Product Sale Percentage" min="0"
+                value="<%= typeof product === 'undefined'  ? '' : product.salePercentage %>">
+            <label for="salePercentage" class="form-label">Sale Percentage</label>
+        </div>
+    </div>
+    <div class="form-floating mb-3">
+        <input type="number" class="form-control" id="inStock" name="inStock" placeholder="Product Stock" min="0"
+            required value="<%= typeof product === 'undefined'  ? '' : product.inStock %>">
+        <label for="inStock" class="form-label">Stock Amount</label>
+    </div>
+    <div class="form-floating mb-3">
+        <select class="form-select" name="brand" id="brand" required>
+            <option value="" selected>Select a Brand:</option>
+            <% brands.forEach(brand => { %>
+            <% if (typeof product !== 'undefined') { %>
+            <% if (brand._id.toString() === product._id.toString()) { %>
+            <option value="<%= brand._id %>" selected><%= brand.name %></option>
+            <% } %>
+            <% } %>
+            <option value="<%= brand._id %>"><%= brand.name %></option>
+            <% }) %>
+        </select>
+        <label for="brand">Brand</label>
+    </div>
+    <span>Category</span>
+    <div class="input-group mb-3">
+        <% categories.forEach(category => { %>
+        <div class="form-check me-3">
+            <input type="checkbox" class="form-check-input" name="category" id="<%= category._id %>"
+                value="<%= category._id %>">
+            <label class="form-check-label" for="<%= category._id %>"><%= category.name %></label>
+        </div>
+        <% }) %>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+<%- include('./footer.ejs') %>
