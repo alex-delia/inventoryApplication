@@ -2,7 +2,7 @@
 <h1 class="title">
     <%= title %>
 </h1>
-<form>
+<form method="POST">
     <div class="form-floating mb-3">
         <input type="text" class="form-control" id="name" name="name" placeholder="Product Name" required
             value="<%= typeof product === 'undefined'  ? '' : product.name %>">
