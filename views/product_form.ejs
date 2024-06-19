@@ -41,10 +41,15 @@
             <% brands.forEach(brand => { %>
             <% if (typeof product !== 'undefined') { %>
             <% if (brand._id.toString() === product._id.toString()) { %>
-            <option value="<%= brand._id %>" selected><%= brand.name %></option>
+            <option value="<%= brand._id %>" selected>
+                <%= brand.name %>
+            </option>
             <% } %>
+            <% } else { %>
+            <option value="<%= brand._id %>">
+                <%= brand.name %>
+            </option>
             <% } %>
-            <option value="<%= brand._id %>"><%= brand.name %></option>
             <% }) %>
         </select>
         <label for="brand">Brand</label>
@@ -53,8 +58,15 @@
     <div class="input-group mb-3">
         <% categories.forEach(category => { %>
         <div class="form-check me-3">
+            <% if (typeof product !== 'undefined') { %>
+            <% if (category._id.toString() === product._id.toString()) { %>
+            <input type="checkbox" class="form-check-input" name="category" id="<%= category._id %>"
+                value="<%= category._id %>" checked>
+            <% } %>
+            <% }else { %>
             <input type="checkbox" class="form-check-input" name="category" id="<%= category._id %>"
                 value="<%= category._id %>">
+            <% } %>
             <label class="form-check-label" for="<%= category._id %>"><%= category.name %></label>
         </div>
         <% }) %>
