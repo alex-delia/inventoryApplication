@@ -94,10 +94,60 @@ exports.brand_delete_post = asyncHandler(async (req, res, next) => {
 
 //display Brand update form on GET
 exports.brand_update_get = asyncHandler(async (req, res, next) => {
-    res.send('NOT IMPLEMENTED: Brand Update GET');
+    const brand = await Brand.findById(req.params.id);
+
+    if (brand === null) {
+        //no results
+        const err = new Error('Brand Not Found');
+        err.status = 404;
+        return next(err);
+    }
+
+    res.render('brand_form', {
+        title: 'Update Brand',
+        brand: brand
+    });
 });
 
 //handle Brand update on POST
-exports.brand_update_post = asyncHandler(async (req, res, next) => {
-    res.send('NOT IMPLEMENTED: Brand Update POST');
-});
+exports.brand_update_post = [
+    //validate and sanitize fields
+    body('name')
+        .trim()
+        .isLength({ min: 1 })
+        .escape()
+        .withMessage('Name must be specified.'),
+    body('description')
+        .trim()
+        .isLength({ min: 1 })
+        .escape()
+        .withMessage('Description must be specified.'),
+
+    // Process request after validation and sanitization.
+    asyncHandler(async (req, res, next) => {
+        // Extract the validation errors from a request.
+        const errors = validationResult(req);
+
+        const brand = new Brand({
+            name: req.body.name,
+            description: req.body.description,
+            _id: req.params.id
+        });
+
+        if (!errors.isEmpty()) {
+            // There are errors. Render form again with sanitized values/errors messages.
+            res.render('brand_form', {
+                title: 'Update Brand',
+                brand: brand,
+                errors: errors.array()
+            });
+        } else {
+            // Data from form is valid.
+
+            // Save category.
+            await Brand.findByIdAndUpdate(req.params.id, brand, {});
+            // Redirect to new category record.
+            res.redirect(brand.url);
+        }
+    })
+];
