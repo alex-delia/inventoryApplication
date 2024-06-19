@@ -35,9 +35,9 @@ exports.category_detail = asyncHandler(async (req, res, next) => {
 });
 
 //display Category create form on GET
-exports.category_create_get = asyncHandler(async (req, res, next) => {
+exports.category_create_get = (req, res, next) => {
     res.render('category_form', { title: 'New Category' });
-});
+};
 
 //handle Category create on POST
 exports.category_create_post = asyncHandler(async (req, res, next) => {
