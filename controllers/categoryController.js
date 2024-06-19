@@ -2,6 +2,7 @@ const Category = require('../models/categorySchema');
 const Product = require('../models/productSchema');
 
 const asyncHandler = require('express-async-handler');
+const { body, validationResult } = require("express-validator");
 
 //display list of all Categories
 exports.category_list = asyncHandler(async (req, res, next) => {
@@ -40,9 +41,45 @@ exports.category_create_get = (req, res, next) => {
 };
 
 //handle Category create on POST
-exports.category_create_post = asyncHandler(async (req, res, next) => {
-    res.send('NOT IMPLEMENTED: Category Create POST');
-});
+exports.category_create_post = [
+    //validate and sanitize fields
+    body('name')
+        .trim()
+        .isLength({ min: 1 })
+        .escape()
+        .withMessage('Name must be specified.'),
+    body('description')
+        .trim()
+        .escape(),
+
+    // Process request after validation and sanitization.
+    asyncHandler(async (req, res, next) => {
+        // Extract the validation errors from a request.
+        const errors = validationResult(req);
+
+        const category = new Category({
+            name: req.body.name,
+            description: req.body.description
+        });
+
+        if (!errors.isEmpty()) {
+            // There are errors. Render form again with sanitized values/errors messages.
+            res.render('category_form', {
+                title: 'New Category',
+                category: category,
+                errors: errors.array()
+            });
+        } else {
+            // Data from form is valid.
+
+            // Save category.
+            await category.save();
+            // Redirect to new author record.
+            res.redirect(category.url);
+        }
+    })
+
+];
 
 //display Category delete form on GET
 exports.category_delete_get = asyncHandler(async (req, res, next) => {
