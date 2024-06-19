@@ -28,14 +28,20 @@
     </li>
 
     <li class='fs-4'>
-        Brand: <a href="<%= product.brand.url %>"><%= product.brand.name %></a>
+        Brand: <a href="<%= product.brand.url %>" class="link-offset-3 link-underline 
+            link-underline-opacity-0 link-underline-opacity-75-hover">
+            <%= product.brand.name %>
+        </a>
     </li>
     <li class='fs-4'>
         Categories
         <ul>
             <% product.category.forEach(category => { %>
             <li>
-                <a href="<%= category.url %>"><%= category.name %></a>
+                <a href="<%= category.url %>" class="link-offset-3 link-underline 
+                    link-underline-opacity-0 link-underline-opacity-75-hover">
+                    <%= category.name %>
+                </a>
             </li>
             <% }) %>
         </ul>
