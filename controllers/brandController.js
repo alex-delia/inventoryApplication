@@ -36,7 +36,7 @@ exports.brand_detail = asyncHandler(async (req, res, next) => {
 
 //display Brand create form on GET
 exports.brand_create_get = asyncHandler(async (req, res, next) => {
-    res.send('NOT IMPLEMENTED: Brand Create GET');
+    res.render('brand_form', { title: 'New Brand' });
 });
 
 //handle Brand create on POST
