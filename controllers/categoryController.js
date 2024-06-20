@@ -82,12 +82,40 @@ exports.category_create_post = [
 
 //display Category delete form on GET
 exports.category_delete_get = asyncHandler(async (req, res, next) => {
-    res.send('NOT IMPLEMENTED: Category Delete GET');
+    const [category, existingProducts] = await Promise.all([
+        Category.findById(req.params.id).exec(),
+        Product.find({ category: req.params.id }).populate('brand').exec()
+    ]);
+
+    if (category === null) {
+        res.redirect('/shop/categories');
+    }
+
+    res.render('category_delete', {
+        title: 'Delete Category',
+        category: category,
+        existingProducts: existingProducts
+    });
 });
 
 //handle Category delete on POST
 exports.category_delete_post = asyncHandler(async (req, res, next) => {
-    res.send('NOT IMPLEMENTED: Category Delete POST');
+    const [category, existingProducts] = await Promise.all([
+        Category.findById(req.params.id).exec(),
+        Product.find({ category: req.params.id }).populate('brand').exec()
+    ]);
+
+    if (existingProducts.length > 0) {
+        res.render('category_delete', {
+            title: 'Delete Category',
+            category: category,
+            existingProducts: existingProducts
+        });
+        return;
+    }
+
+    await Category.findByIdAndDelete(req.params.id).exec();
+    res.redirect('/shop/categories');
 });
 
 //display Category update form on GET
