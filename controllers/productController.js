@@ -163,7 +163,7 @@ exports.product_delete_get = asyncHandler(async (req, res, next) => {
 
 //handle Product delete on POST
 exports.product_delete_post = asyncHandler(async (req, res, next) => {
-    await Product.findByIdAndDelete(req.params.id);
+    await Product.findByIdAndDelete(req.params.id).exec();
     res.redirect('/shop/products');
 });
 
