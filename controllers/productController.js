@@ -60,6 +60,14 @@ exports.product_create_get = asyncHandler(async (req, res, next) => {
 
 //handle Product create on POST
 exports.product_create_post = [
+    // Convert the categories to an array.
+    (req, res, next) => {
+        if (!Array.isArray(req.body.category)) {
+            req.body.category = typeof req.body.category === "undefined" ? [] : [req.body.category];
+        }
+        next();
+    },
+
     body('name', 'Name must not be empty.')
         .trim()
         .isLength({ min: 1 })
@@ -91,7 +99,7 @@ exports.product_create_post = [
         .trim()
         .isLength({ min: 1 })
         .escape(),
-    body('cateogry.*')
+    body('category.*')
         .escape(),
 
     // Process request after validation and sanitization.
@@ -101,23 +109,41 @@ exports.product_create_post = [
 
         const product = new Product({
             name: req.body.name,
-            description: req.body.description
+            description: req.body.description,
+            price: req.body.price,
+            salePercentage: req.body.salePercentage,
+            inStock: req.body.inStock,
+            brand: req.body.brand,
+            category: req.body.category
         });
 
         if (!errors.isEmpty()) {
+            const [allBrands, allCategories] = await Promise.all([
+                Brand.find().sort({ name: 1 }).exec(),
+                Category.find().sort({ name: 1 }).exec()
+            ]);
+
+             // Mark our selected genres as checked.
+             for (const category of allCategories) {
+                if (product.category.includes(category._id)) {
+                    category.checked = "true";
+                }
+            }
+
             // There are errors. Render form again with sanitized values/errors messages.
-            res.render('category_form', {
-                title: 'New Category',
-                category: category,
+            res.render('product_form', {
+                title: 'New Product',
+                product: product,
+                brands: allBrands,
+                categories: allCategories,
                 errors: errors.array()
             });
         } else {
             // Data from form is valid.
-
-            // Save category.
-            await category.save();
-            // Redirect to new category record.
-            res.redirect(category.url);
+            // Save product.
+            await product.save();
+            // Redirect to new product record.
+            res.redirect(product.url);
         }
     })
 ];
