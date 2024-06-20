@@ -94,7 +94,7 @@ exports.brand_delete_post = asyncHandler(async (req, res, next) => {
 
 //display Brand update form on GET
 exports.brand_update_get = asyncHandler(async (req, res, next) => {
-    const brand = await Brand.findById(req.params.id);
+    const brand = await Brand.findById(req.params.id).exec();
 
     if (brand === null) {
         //no results
