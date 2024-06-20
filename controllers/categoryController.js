@@ -105,17 +105,18 @@ exports.category_delete_post = asyncHandler(async (req, res, next) => {
         Product.find({ category: req.params.id }).populate('brand').exec()
     ]);
 
+
     if (existingProducts.length > 0) {
+        //if there are still products in this category they must be deleted first
         res.render('category_delete', {
             title: 'Delete Category',
             category: category,
             existingProducts: existingProducts
         });
-        return;
+    } else {
+        await Category.findByIdAndDelete(req.params.id).exec();
+        res.redirect('/shop/categories');
     }
-
-    await Category.findByIdAndDelete(req.params.id).exec();
-    res.redirect('/shop/categories');
 });
 
 //display Category update form on GET

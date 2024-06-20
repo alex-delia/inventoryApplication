@@ -108,6 +108,7 @@ exports.brand_delete_post = asyncHandler(async (req, res, next) => {
     ]);
 
     if (existingProducts.length > 0) {
+        //if there are still products in this brand they must be deleted first
         res.render('brand_delete', {
             title: 'Delete Brand',
             brand: brand,
