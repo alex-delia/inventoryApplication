@@ -9,8 +9,8 @@
         <label for="name" class="form-label">Name</label>
     </div>
     <div class="form-floating mb-3">
-        <textarea class="form-control" placeholder="Product Description" id="description" name="description"
-            required><%= typeof product === 'undefined'  ? '' : product.description %></textarea>
+        <textarea class="form-control auto-resize-textarea" placeholder="Product Description" id="description"
+            name="description" required><%= typeof product === 'undefined'  ? '' : product.description %></textarea>
         <label for="description">Description</label>
     </div>
     <div class="input-group mb-3">
@@ -77,4 +77,5 @@
     <% }) %>
 </ul>
 <% } %>
+<script src="/javascripts/textarea-autosize.js"></script>
 <%- include('./footer.ejs') %>
