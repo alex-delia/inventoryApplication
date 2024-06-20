@@ -36,7 +36,6 @@ const ProductSchema = new Schema({
         min: 0,
         max: 75,
         default: 0,
-        required: true
     },
 });
 
