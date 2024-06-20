@@ -123,12 +123,12 @@ exports.product_create_post = [
                 Category.find().sort({ name: 1 }).exec()
             ]);
 
-             // Mark our selected genres as checked.
-             for (const category of allCategories) {
+            // Mark our selected genres as checked.
+            allCategories.forEach(category => {
                 if (product.category.includes(category._id)) {
                     category.checked = "true";
                 }
-            }
+            });
 
             // There are errors. Render form again with sanitized values/errors messages.
             res.render('product_form', {
@@ -159,7 +159,24 @@ exports.product_delete_post = asyncHandler(async (req, res, next) => {
 
 //display Product update form on GET
 exports.product_update_get = asyncHandler(async (req, res, next) => {
-    res.send('NOT IMPLEMENTED: Product Update GET');
+    const [product, allBrands, allCategories] = await Promise.all([
+        Product.findById(req.params.id).exec(),
+        Brand.find().sort({ name: 1 }).exec(),
+        Category.find().sort({ name: 1 }).exec()
+    ]);
+
+    allCategories.forEach(category => {
+        if (product.category.includes(category._id)) {
+            category.checked = 'true';
+        }
+    });
+
+    res.render('product_form', {
+        title: 'Update Product',
+        product: product,
+        brands: allBrands,
+        categories: allCategories
+    });
 });
 
 //handle Product update on POST
