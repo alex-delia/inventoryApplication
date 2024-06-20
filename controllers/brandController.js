@@ -29,7 +29,7 @@ exports.brand_detail = asyncHandler(async (req, res, next) => {
     }
 
     res.render('brand_detail', {
-        title: `${brand.name} Details`,
+        title: `${brand.name}`,
         brand: brand,
         brand_products: brandProducts
     });
