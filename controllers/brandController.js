@@ -84,12 +84,39 @@ exports.brand_create_post = [
 
 //display Brand delete form on GET
 exports.brand_delete_get = asyncHandler(async (req, res, next) => {
-    res.send('NOT IMPLEMENTED: Brand Delete GET');
+    const [brand, existingProducts] = await Promise.all([
+        Brand.findById(req.params.id).exec(),
+        Product.find({ brand: req.params.id }).populate('brand').exec()
+    ]);
+
+    if (brand === null) {
+        res.redirect('/shop/brands');
+    }
+
+    res.render('brand_delete', {
+        title: 'Delete Brand',
+        brand: brand,
+        existingProducts: existingProducts
+    });
 });
 
 //handle Brand delete on POST
 exports.brand_delete_post = asyncHandler(async (req, res, next) => {
-    res.send('NOT IMPLEMENTED: Brand Delete POST');
+    const [brand, existingProducts] = await Promise.all([
+        Brand.findById(req.params.id).exec(),
+        Product.find({ brand: req.params.id }).populate('brand').exec()
+    ]);
+
+    if (existingProducts.length > 0) {
+        res.render('brand_delete', {
+            title: 'Delete Brand',
+            brand: brand,
+            existingProducts: existingProducts
+        });
+    } else {
+        await Brand.findByIdAndDelete(req.params.id).exec();
+        res.redirect('/shop/brands');
+    }
 });
 
 //display Brand update form on GET

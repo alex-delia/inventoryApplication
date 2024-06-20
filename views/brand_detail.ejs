@@ -25,8 +25,16 @@
     <% }) %>
 </ul>
 <hr>
-<a href="<%= brand.url %>/update" class="link-offset-3 link-underline 
+<div class="mb-2">
+    <a href="<%= brand.url %>/update" class="link-offset-3 link-underline 
     link-underline-opacity-0 link-underline-opacity-75-hover">
-    Update Brand
-</a>
+        Update Brand
+    </a>
+</div>
+<div>
+    <a href="<%= brand.url %>/delete" class="link-offset-3 link-underline 
+        link-underline-opacity-0 link-underline-opacity-75-hover">
+        Delete Brand
+    </a>
+</div>
 <%- include('./footer.ejs') %>

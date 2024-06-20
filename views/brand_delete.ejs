@@ -1,0 +1,29 @@
+<%- include('./header.ejs') %>
+<h1 class="title mb-4"><%= brand.name %></h1>
+
+<h3 class="text-center mb-3">Do you really want to delete this brand?</h3>
+
+<form method="POST">
+    <div class="text-center">
+        <button type="submit" class="btn btn-danger">Delete</button>
+    </div>
+</form>
+
+<% if(existingProducts.length > 0){%>
+<h5>Delete the following products before deleting this brand:</h5>
+<ul>
+    <% existingProducts.forEach(product => { %>
+    <li>
+        <a href="<%= product.url %>" class="link-offset-3 link-underline 
+        link-underline-opacity-0 link-underline-opacity-75-hover">
+            <%= product.name %>
+        </a>
+    </li>
+    <ul>
+        <li><%= product.brand.name %></li>
+    </ul>
+    <% }) %>
+    </dl>
+    <% } %>
+
+    <%- include('./footer.ejs') %>
