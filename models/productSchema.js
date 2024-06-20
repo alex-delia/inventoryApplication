@@ -49,7 +49,10 @@ ProductSchema.virtual('isOnSale').get(function () {
 });
 
 ProductSchema.virtual('salePrice').get(function () {
-    return this.price - (this.price * (this.salePercentage / 100));
+    let salePrice = this.price - (this.price * (this.salePercentage / 100));
+    salePrice = Math.round(salePrice * 100) / 100;
+
+    return salePrice;
 });
 
 module.exports = mongoose.model('Product', ProductSchema);
