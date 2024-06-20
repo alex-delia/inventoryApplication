@@ -149,12 +149,22 @@ exports.product_create_post = [
 ];
 //display Product delete form on GET
 exports.product_delete_get = asyncHandler(async (req, res, next) => {
-    res.send('NOT IMPLEMENTED: Product Delete GET');
+    const product = await Product.findById(req.params.id).populate('brand').exec();
+
+    if (product === null) {
+        res.redirect('/shop/products');
+    }
+
+    res.render('product_delete', {
+        title: 'Delete Product',
+        product: product
+    });
 });
 
 //handle Product delete on POST
 exports.product_delete_post = asyncHandler(async (req, res, next) => {
-    res.send('NOT IMPLEMENTED: Product Delete POST');
+    await Product.findByIdAndDelete(req.params.id);
+    res.redirect('/shop/products');
 });
 
 //display Product update form on GET
@@ -164,6 +174,12 @@ exports.product_update_get = asyncHandler(async (req, res, next) => {
         Brand.find().sort({ name: 1 }).exec(),
         Category.find().sort({ name: 1 }).exec()
     ]);
+
+    if (product === null) {
+        const err = new Error('Product Not Found');
+        err.status = 404;
+        return next(err);
+    }
 
     allCategories.forEach(category => {
         if (product.category.includes(category._id)) {
