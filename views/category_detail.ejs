@@ -3,9 +3,9 @@
     <%= title %>
 </h1>
 
-<h4 class='text-center'>
+<h5 class='text-center'>
     <%= category.description %>
-</h4>
+</h5>
 
 <% if (category_products.length === 0) { %>
 <h5>No Products Found</h5>
@@ -13,7 +13,7 @@
 
 <ul>
     <% category_products.forEach(product => { %>
-    <li>
+    <li class="mb-3">
         <h5>
             <a href="<%= product.url %>" class="link-offset-3 link-underline 
                 link-underline-opacity-0 link-underline-opacity-75-hover">

@@ -3,7 +3,7 @@
     <%= title %>
 </h1>
 
-<h5 class='text-center'>
+<h5 class='text-center mb-4'>
     <%- brand.description %>
 </h5>
 
@@ -13,7 +13,7 @@
 
 <ul>
     <% brand_products.forEach(product => { %>
-    <li>
+    <li class="mb-3">
         <h5>
             <a href="<%= product.url %>" class="link-offset-3 link-underline 
                 link-underline-opacity-0 link-underline-opacity-75-hover">
@@ -29,5 +29,4 @@
     link-underline-opacity-0 link-underline-opacity-75-hover">
     Update Brand
 </a>
-
 <%- include('./footer.ejs') %>

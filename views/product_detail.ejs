@@ -2,9 +2,11 @@
 <h1 class="title">
     <%= product.name %>
 </h1>
-<h3 class='text-center'>
+
+<h5 class='text-center'>
     <%= product.description %>
-</h3>
+</h5>
+
 <ul>
     <li class='fs-4'>
         <% if(product.isOnSale){%>
@@ -37,7 +39,7 @@
         Categories
         <ul>
             <% product.category.forEach(category => { %>
-            <li>
+            <li class="fs-5">
                 <a href="<%= category.url %>" class="link-offset-3 link-underline 
                     link-underline-opacity-0 link-underline-opacity-75-hover">
                     <%= category.name %>
